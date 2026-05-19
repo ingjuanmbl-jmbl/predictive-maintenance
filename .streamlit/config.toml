@@ -1,0 +1,13 @@
+[theme]
+base="light"
+primaryColor=""#1E3A8A" # Color de botones y acentos (Azul industrial)
+backgroundColor="#ffffff" # Color del fondo principal
+secondaryBackgroundColor="#f0f2f6" # Color de la barra lateral y widgets
+textColor="#262730" # Color del texto
+font="sans serif" # Opciones: "sans serif", "serif", "monospace"
+
+[client]
+showErrorDetails = false # En producción, oculta los detalles técnicos de los errores
+toolbarMode = "minimal" # Oculta el menú de "Deploy", "Settings", etc. (ideal para un look limpio)
+showSidebarNavigation = true # Si quieres ocultar el menú automático de la carpeta 'pages' (falso)
+
