@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 
 from src.clean_fi import rename_cols, feature_ing
-from src.utils import save_csv
+from src.utils import save_csv, save_model, save_metrics
 
 
 from src.model import (
@@ -71,6 +71,13 @@ def pipeline():
     model = train_model(X_train, y_train)
     print("Entrenamiento Finalizado")
 
+    #6.1 guardar modelo entrenado
+    save_model(model,
+               "artifacts/save_model",
+               "model_rf")
+    
+    print('modelo almacenado correctamente')
+
     #7 predecir y evaluar
     y_pred =  predict_model(model, X_test)
     print("predicción Finalizada")
@@ -78,6 +85,12 @@ def pipeline():
     #8 Metricas
     metrics = evaluate_model(y_test, y_pred)
     print("evaluación Finalizada")
+
+    #8.1 Almacenar el artefacto con los resultados de entrenamiento
+    save_metrics(metrics,
+                 "artifacts/model_result/metric_rf.json"
+                 )
+    print("Metricas del modelo almacenadas correctamente")
 
     
 

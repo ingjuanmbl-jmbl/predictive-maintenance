@@ -3,6 +3,7 @@ from pandas import DataFrame
 import joblib
 from pathlib import Path
 import json
+import os
 
 ##################### FUNCIONES PARA MAEJO DE CSV ######################
 
@@ -38,53 +39,31 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 ARTIFACTS_DIR = ROOT_DIR / "artifacts"
 
 #Definir la función de guardado del artefacto
-def save_artifact(obj, name, artifacts_type):
+def save_model(model, path, model_name):
+    """Guarda un objeto o artefacto en la ruta especificada.
+        Argumentos:
+            Model: Model enttrenado que desea guardar.
+            path: La ruta espefica donde desea almacenar el modelo entrenado
+            model_name:  Nombre especifico con la que se quiere almacenar el mdoelos
+        Retorna:
+            Mensaje con la ruta donde se almacenó en modelo
     """
-    Guarda un objeto de Python (modelo, encoder, scaler, etc.) en una subcarpeta específica 
-    dentro del directorio de 'artifacts'.
-        Args:
-            obj: obj (any): El objeto de Python que se desea persistir (ej. un modelo de KMeans o un OrdinalEncoder).
-            name (str): El nombre que se le dará al archivo (sin la extensión .joblib).
-            artifacts_type (str): El nombre de la subcarpeta donde se guardará.
-        Returns:
-            pathlib.Path: La ruta completa donde se guardó el archivo.
-    """
-    #Definir y crear al carpeta si no existe
-    target_dir = ARTIFACTS_DIR / artifacts_type
-    target_dir.mkdir(parents=True, exist_ok=True)
+    # Combinamos la ruta de la carpeta y el nombre del archivo
+    full_path = os.path.join(path, f"{model_name}.joblib")
 
-    #Constrir la ruta final del archivo 
-    file_path = target_dir / f"{name}.joblib"
 
-    #Guardar el objeto en el disco 
-    joblib.dump(obj, file_path)
-    print(f"Objeto correctamente cargado en: {file_path}")
-    
-    return file_path
+    #Guardamos el modelo
+    joblib.dump(model, full_path)
+    return f"Modelo almacenado correctamente en: {path}"
 
-def load_artifact(name, artifact_type):
+def load_model(path):
     """
-    Carga un objeto guardado previamente en formato .joblib desde la carpeta de artifacts.
-    Args:
-        name (str): El nombre del archivo que se desea cargar (sin la extensión .joblib).
-        artifact_type (str): La subcarpeta donde se encuentra el archivo. 
-            Debe coincidir con el tipo usado al guardar.
-    Returns:
-        any: El objeto cargado (modelo, encoder, etc.) listo para ser usado.
-    Raises:
-        FileNotFoundError: Si el archivo buscado no existe en la ruta especificada.
+    Carga un modelo de una ruta especifica
     """
-    # Construir la ruta del archivo que se quiere buscar
-    file_path = ARTIFACTS_DIR / artifact_type / f"{name}.joblib"
-    
-    # Verificar si el archivo existe antes de intentar cargarlo
-    if not file_path.exists():
-        raise FileNotFoundError(f"❌ Error: El archivo '{name}.joblib' no existe en '{artifact_type}'.")
-    
-    # Cargar y retornar el objeto
-    obj = joblib.load(file_path)
-    print(f"📂 Artefacto cargado correctamente desde: {file_path}")
-    return obj
+    return joblib.load(path)
+
+
+
 
 ##### -----------------------------------------------##########################
 

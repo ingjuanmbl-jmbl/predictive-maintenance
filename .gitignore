@@ -1,0 +1,17 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Puntos de control y temporales de Jupyter Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+.jupyter/
+
+# Archivos temporales de ejecución y estados de VS Code para Notebooks
+*.ipynb_user
+.nbconvert/
