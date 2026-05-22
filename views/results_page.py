@@ -13,7 +13,8 @@ sys.path.append(BASE_DIR)
 from src.utils import load_metrics
 
 def show_results():
-    st.title("📊 Rendimiento del Modelo de Mantenimiento Predictivo")
+    st.title("Rendimiento del Modelo de Mantenimiento Predictivo")
+    st.markdown("---")
     
     
     ruta_json = "artifacts/model_result/metric_rf.json"
@@ -96,8 +97,21 @@ def show_results():
     }
     df_report = pd.DataFrame(report_dict)
     st.table(df_report.set_index("Métrica"))
+
+    st.success(
+        """
+        El modelo mitiga directamente el "Asesino Silencioso" (la variabilidad no detectada).
+        Al capturar casi el 78% de los paros no programados y mantener una tasa de falsas alarmas 
+        inferior al 1%, la transición de un mantenimiento basado en tiempo a uno predictivo/prescriptivo
+        tiene el potencial de reducir drásticamente ese 18% del Costo de No Calidad (scrap y re-trabajos)
+        estimado en el diagnóstico operativo inicial de la planta. El artefacto ´metric_rf´.json 
+        queda integrado de forma dinámica y escalable.
+        """
+    )
     
     st.toast("¡Métricas vinculadas dinámicamente a los artefactos!", icon="🔄")
+
+
 
 if __name__ == "__main__":
     show_results()
