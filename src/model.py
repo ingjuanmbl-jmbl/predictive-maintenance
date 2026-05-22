@@ -1,6 +1,6 @@
 import pandas as pd
 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 
 def split_data(
@@ -36,34 +36,53 @@ def split_data(
 def train_model(
     X_train,
     y_train,
-    n_estimators: int = 100,
     random_state: int = 42
 ):
     """
-    Entrena un modelo de clasificación/regresión basado en conjuntos (Ensemble Learning).
+    Entrena un modelo RandomForestClassifier optimizando hiperparámetros 
+    mediante GridSearchCV (Validación Cruzada).
 
     Argumentos:
-        X_train (array-like o pd.DataFrame): Matriz de características (predictores) 
-            para el entrenamiento del modelo.
+        X_train (array-like o pd.DataFrame): Matriz de características (predictores) para el entrenamiento del modelo.
         y_train (array-like o pd.Series): Vector de la variable objetivo (target).
-        n_estimators (int, opcional): Número de árboles en el modelo. 
-            Por defecto es 100.
-        random_state (int, opcional): Semilla aleatoria para garantizar la 
-            reproducibilidad del entrenamiento. Por defecto es 42.
+        random_state (int, opcional): Semilla aleatoria para reproducibilidad. Por defecto es 42.
 
     Retorna:
-        model: El modelo entrenado y listo para realizar predicciones o evaluaciones.
+        model: El MEJOR modelo entrenado obtenido por la búsqueda en grilla. basado en f1
     """
-
-    model = RandomForestClassifier(
-        n_estimators=n_estimators,
+    #1. Definimos el modelo base
+    base_model = RandomForestClassifier(
         class_weight='balanced',
         random_state=random_state
     )
+    #2 Definimos la malla de hiperparametros a probar (Grid)
+    param_grid = {
+        'n_estimators': [20, 50, 100, 150, 200],
+        'max_depth': [6, 8, 12, None],
+        'min_samples_split': [2, 5, 10],
+        'min_samples_leaf': [1, 2, 4],
+        'max_features': ['sqrt', 0.5],
+        'criterion': ['gini', 'entropy']
+    }
 
-    model.fit(X_train, y_train)
+    #3. Configuramos la validación cruzada
+    grid_search = GridSearchCV(
+        estimator=base_model,
+        param_grid=param_grid,
+        cv=5,
+        scoring='f1', #Metrica con la que se realiza la optimización de hiperparametros
+        n_jobs=1, #Utiliza todos los nucleos del procesador
+        verbose=1
+    )
 
-    return model
+    print("Iniciando GridSearchCV (Probando combinaciones con CV=5)...")
+    grid_search.fit(X_train, y_train)
+
+    # 4. Imprimimos los mejores resultados en consola para nuestro control
+    print(f"Mejores parámetros encontrados: {grid_search.best_params_}")
+    print(f"Mejor F1-Score en validación cruzada: {grid_search.best_score_:.4f}")
+
+    return grid_search.best_estimator_
 
 
 def predict_model(model, X_test):

@@ -2,6 +2,8 @@
 import os
 import sys
 import pandas as pd
+import mlflow
+import mlflow.sklearn
 
 
 # Esto asegura que 'src' sea visible sin importar desde dónde se ejecute el script
@@ -67,36 +69,55 @@ def pipeline():
 
     print("Split Finalizado")
 
-    #6 Entrenar modelo
-    model = train_model(X_train, y_train)
-    print("Entrenamiento Finalizado")
+    #Instanciamos MLFLOW para hacer trazabilidad a los modelos
+    mlflow.set_experiment("mantenimiento_predictivo_ai4i2020")
 
-    #6.1 guardar modelo entrenado
-    save_model(model,
-               "artifacts/save_model",
-               "model_rf")
-    
-    print('modelo almacenado correctamente')
+    with mlflow.start_run():
+        # para no tener que cargar cada parametro a mano y evitar que me muestre metricas del entrenamiento
+        mlflow.sklearn.autolog(log_post_training_metrics=False,
+                               log_models=False,
+                               max_tuning_runs=None)
 
-    #7 predecir y evaluar
-    y_pred =  predict_model(model, X_test)
-    print("predicción Finalizada")
+        #6 Entrenar modelo
+        model = train_model(X_train, y_train)
+        print("Entrenamiento Finalizado")
 
-    #8 Metricas
-    metrics = evaluate_model(y_test, y_pred)
-    print("evaluación Finalizada")
+        #6.1 guardar modelo entrenado
+        save_model(model,
+                "artifacts/save_model",
+                "model_rf")
+        
+        print('modelo almacenado correctamente')
 
-    #8.1 Almacenar el artefacto con los resultados de entrenamiento
-    save_metrics(metrics,
-                 "artifacts/model_result/metric_rf.json"
-                 )
-    print("Metricas del modelo almacenadas correctamente")
+        #7 predecir y evaluar
+        y_pred =  predict_model(model, X_test)
+        print("predicción Finalizada")
 
-    
+        #8 Metricas
+        metrics = evaluate_model(y_test, y_pred)
+        print("evaluación Finalizada")
 
+        #8.1 Almacenar el artefacto con los resultados de entrenamiento
+        save_metrics(metrics,
+                    "artifacts/model_result/metric_rf.json"
+                    )
+        print("Metricas del modelo almacenadas correctamente")
 
-
-
+        # 9 Extraemos solo los valores numéricos simples para la UI de MLflow
+        mlflow_metrics = {
+            "accuracy": metrics["accuracy"],
+            "precision": metrics["precision"],
+            "recall": metrics["recall"],
+            "f1_score": metrics["f1_score"]
+        }
+        mlflow.log_metrics(mlflow_metrics)
+        
+        # Subimos el artefacto de metricas
+        mlflow.log_artifact("artifacts/model_result/metric_rf.json", artifact_path="evaluacion")
+        
+        # 3. Guardar el modelo
+        mlflow.sklearn.log_model(model, name ="modelo_random_forest")
+        print(" ¡Todo guardado y sincronizado en MLflow sin errores!")
 
     
 if __name__ == "__main__":
