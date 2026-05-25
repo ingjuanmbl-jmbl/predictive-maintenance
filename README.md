@@ -24,7 +24,7 @@ Este proyecto migra la estrategia operativa de un enfoque preventivo tradicional
 ## 📐 2. Arquitectura de Software y Modularización
 El proyecto se diseñó bajo principios de código limpio y desacoplamiento de responsabilidades, facilitando su mantenibilidad y futura escalabilidad (como la Fase 2 Multiclase).
 
-```text
+```
 predictive-maintenance/
 │
 ├── .streamlit/              # Configuración visual de la interfaz (config.toml)
@@ -43,6 +43,7 @@ predictive-maintenance/
 ├── README.md                # Documentación técnica del proyecto
 └── requirements.txt         # Dependencias del entorno de producción
 └── LICENCE.txt              # LICENCIA DE USO
+```
 
 ## 🧠 3. Ingeniería de Características (Feature Engineering)
 El modelo no solo se alimenta de las métricas crudas de los sensores; incorpora **variables calculadas basadas en principios físicos de la ingeniería mecánica** para potenciar el poder predictivo:
