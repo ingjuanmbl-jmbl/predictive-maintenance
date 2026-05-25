@@ -50,8 +50,10 @@ El modelo no solo se alimenta de las métricas crudas de los sensores; incorpora
 
 * **Potencia Física ($W$):** Relación matemática entre el Torque y la Velocidad de Rotación.
     $$\text{Potencia\_W} = \frac{\text{Velocidad\_Rotacion\_RPM} \times \text{Torque\_Nm}}{9.5488}$$
+
 * **Diferencial de Temperatura ($\Delta K$):** Indicador de esfuerzo térmico en la herramienta.
     $$\text{Dif\_temperatura\_K} = \text{Temp\_Proceso\_K} - \text{Temp\_Aire\_K}$$
+
 * **Esfuerzo de Desgaste:** Interacción acumulada entre la fuerza de torsión y el tiempo de uso.
     $$\text{Esfuerzo\_desgaste} = \text{Torque\_Nm} \times \text{Desgaste\_Herramienta\_min}$$
 
