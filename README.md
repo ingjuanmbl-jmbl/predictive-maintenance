@@ -45,17 +45,28 @@ predictive-maintenance/
 └── LICENCE.txt              # LICENCIA DE USO
 ```
 
-## 🧠 3. Ingeniería de Características (Feature Engineering)
-El modelo no solo se alimenta de las métricas crudas de los sensores; incorpora **variables calculadas basadas en principios físicos de la ingeniería mecánica** para potenciar el poder predictivo:
+El modelo no solo se alimenta de las métricas crudas de los sensores; incorpora variables calculadas basadas en principios físicos de la ingeniería mecánica para potenciar el poder predictivo:
 
-* **Potencia Física ($W$):** Relación matemática entre el Torque y la Velocidad de Rotación.
-    $$\text{Potencia\_W} = \frac{\text{Velocidad\_Rotacion\_RPM} \times \text{Torque\_Nm}}{9.5488}$$
+### Potencia Física (W)
+Relación matemática entre el Torque y la Velocidad de Rotación.
 
-* **Diferencial de Temperatura ($\Delta K$):** Indicador de esfuerzo térmico en la herramienta.
-    $$\text{Dif\_temperatura\_K} = \text{Temp\_Proceso\_K} - \text{Temp\_Aire\_K}$$
+$$
+\text{Potencia\_W} = \frac{\text{Velocidad\_Rotacion\_RPM} \times \text{Torque\_Nm}}{9.5488}
+$$
 
-* **Esfuerzo de Desgaste:** Interacción acumulada entre la fuerza de torsión y el tiempo de uso.
-    $$\text{Esfuerzo\_desgaste} = \text{Torque\_Nm} \times \text{Desgaste\_Herramienta\_min}$$
+### Diferencial de Temperatura (ΔK)
+Indicador de esfuerzo térmico en la herramienta.
+
+$$
+\text{Dif\_temperatura\_K} = \text{Temp\_Proceso\_K} - \text{Temp\_Aire\_K}
+$$
+
+### Esfuerzo de Desgaste
+Interacción acumulada entre la fuerza de torsión y el tiempo de uso.
+
+$$
+\text{Esfuerzo\_desgaste} = \text{Torque\_Nm} \times \text{Desgaste\_Herramienta\_min}
+$$
 
 ---
 
