@@ -12,15 +12,16 @@ st.set_page_config(
 from views.EDA_page import show_eda
 from views.results_page import show_results
 from views.context_page import context
+from views.predict import render_predict
 
 # 3. Barra de Navegación Superior Fija (Tipo App Móvil/Web Moderna)
 selected = option_menu(
     menu_title=None,               # Al poner None, quitamos el título del menú para ahorrar espacio arriba
-    options=["Contexto Operativo", "Dashboard EDA", "Métricas del Modelo"], 
-    icons=["book", "search", "bar-chart-line"], # Iconos estilizados de Bootstrap
+    options=["Contexto Operativo", "Dashboard EDA", "Métricas del Modelo", "Inferencia"], 
+    icons=["book", "search", "bar-chart-line", "activity"], # Iconos estilizados de Bootstrap
     menu_icon="cast",              
     default_index=0,               
-    orientation="horizontal",      # <-- ¡ESTA ES LA MAGIA! Lo vuelve barra superior
+    orientation="horizontal",      
     styles={
         "container": {
             "padding": "0px!", 
@@ -33,7 +34,7 @@ selected = option_menu(
             "font-size": "16px"
         }, 
         "nav-link": {
-            "color": "#ffffff",          # <-- ¡ESTA LÍNEA ES LA MAGIA! Hace las letras visibles (Blanco)
+            "color": "#ffffff",         
             "font-size": "15px", 
             "text-align": "center", 
             "margin": "0px", 
@@ -49,7 +50,6 @@ selected = option_menu(
 )
 
 # --- Contenedor Opcional para Branding Flotante ---
-# Como quitamos la barra lateral, podemos poner una línea sutil arriba o abajo
 # st.caption("⚙️ Industrial Tech Solutions | Analítica Avanzada")
 
 # 4. Enrutador Dinámico (Corregido con elif)
@@ -59,3 +59,5 @@ elif selected == "Dashboard EDA":
     show_eda()
 elif selected == "Métricas del Modelo":
     show_results()
+elif selected == "Inferencia":
+    render_predict()

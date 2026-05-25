@@ -1,0 +1,12 @@
+Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional
+
+Usted es libre de:
+- Compartir: Copiar y redistribuir el material en cualquier medio o formato.
+- Adaptar: Remezclar, transformar y construir a partir del material.
+
+Bajo los siguientes términos:
+- Atribución: Debe otorgar el crédito correspondiente de manera adecuada (Autor: Ing. Juan Manuel Betancur López).
+- NoComercial: No puede utilizar el material con fines comerciales.
+- CompartirIgual: Si remezcla, transforma o crea a partir del material, debe distribuir sus contribuciones bajo la misma licencia que el original.
+
+Texto completo de la licencia disponible en: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
