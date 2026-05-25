@@ -121,4 +121,4 @@ Este proyecto está bajo la licencia **Creative Commons Atribución-NoComercial-
   </a>
 </p>
 
-Puedes usar, copiar y modificar este código con fines educativos, de aprendizaje o para tu propio portafolio, siempre y cuando otorgues el crédito correspondiente y compartas tus derivados bajo esta misma licencia. Queda prohibida su comercialización sin autorización previa.
+Puedes compartir unicamente este código bajo fines educativos, siempre y cuando otorgues el crédito correspondiente y compartas tus derivados bajo esta misma licencia. Queda prohibida su comercialización sin autorización previa.
