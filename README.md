@@ -103,6 +103,42 @@ Tras evaluar múltiples algoritmos y registrar su ciclo de vida en **MLflow**, e
 | **Sensibilidad (Recall)** | **77.94%** | Captura casi el 78% de las fallas mecánicas reales antes de que sucedan. |
 | **Especificidad** | **> 99.00%** | Tasa de error en estado normal inferior al 1%. Evita paros en falso de la planta. |
 
+## 💵 5. Supuesto Teórico del Impacto Económico (ROI)
+
+Para cuantificar el valor estratégico del modelo en la planta de producción, se estructuró un análisis de Retorno de Inversión (ROI) simulando un histórico de **100 eventos de falla potenciales al año**, contrastando las métricas reales de nuestra matriz de confusión (*Recall*: 77.94%, *Precision*: 89.83%).
+
+### 🚨 1. Anatomía de una Falla Catastrófica (Enfoque Reactivo - Sin Modelo)
+Si la máquina rompe por fatiga total debido a una falla no detectada:
+* **Repuesto de urgencia:** $2,500 USD (Husillo, rodamientos o motor adquiridos con recargo por tiempo).
+* **Mano de obra especializada externa:** $500 USD (Tarifa de emergencia).
+* **Parada de línea no programada:** $7,200 USD ($1,200 USD/hora × 6 horas de lucro cesante).
+* 💰 **Costo Total por Falla Reactiva:** **$10,200 USD**
+
+### 🛠️ 2. Anatomía del Mantenimiento Predictivo (Enfoque Proactivo - Con Modelo)
+Si el modelo emite una alerta temprana y se programa la intervención:
+* **Repuesto planificado:** $1,500 USD (Adquirido a precio de mercado estándar).
+* **Mano de obra interna:** $200 USD (Ejecutado por técnicos de la planta en turno normal).
+* **Parada programada:** $0 USD (La intervención de 2 horas se agenda en ventanas de cambio de turno o fines de semana).
+* 💰 **Costo Total por Falla Mitigada:** **$1,700 USD**
+
+### ⚠️ 3. Costo por Falsa Alarma (Falso Positivo)
+Debido a que la Precisión del modelo es del 89.83%, existe un riesgo de ~10% de alertas falsas que conllevan una inspección preventiva innecesaria:
+* **Mano de obra para verificación:** $50 USD (Inspección rápida de 30 minutos sin cambio de componentes).
+
+---
+
+### 📊 Análisis Consolidado de Impacto Anual
+
+| Escenario | Desglose del Cálculo | Costo Total Anual |
+| :--- | :--- | :--- |
+| **Escenario A: Tradicional** | 100 fallas catastróficas × $10,200 | $1,020,000 USD |
+| **Escenario B: Con Modelo** | (78 fallas mitigadas × $1,700) + (22 fallas no capturadas × $10,200) + (10 falsas alarmas × $50) | $357,100 USD |
+
+### 📉 Resultados Clave:
+* 💰 **Ahorro Neto Estimado:** **$662,900 USD / año**.
+* 📉 **Reducción del 65%** en los costos globales de mantenimiento de la planta CNC.
+* 🛡️ **Riesgo Residual Controlado:** El 22% de costo remanente representa las fallas no capturadas por el *Recall* (22 de cada 100), justificando el desarrollo de la **Fase 2 (Modelo Multiclase)** para afinar la sensibilidad del diagnóstico.
+
 ---
 
 🛠️ Próximos Pasos (Fase 2)
